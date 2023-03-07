@@ -12,12 +12,16 @@ const characters = [
     id: 2,
   },
   {
-    name: 'Wenda',
+    name: 'Odlaw',
     id: 3,
   },
   {
-    name: 'Waldo',
+    name: 'Wenda',
     id: 4,
+  },
+  {
+    name: 'Waldo',
+    id: 5,
   },
 ];
 
