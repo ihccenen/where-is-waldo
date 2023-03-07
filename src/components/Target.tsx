@@ -7,7 +7,7 @@ export default function Target({
 }: {
   value?: string;
   list?: { name: string; id: number }[];
-  handleChange?: (e: React.FormEvent<HTMLSelectElement>) => void;
+  handleChange?: (e: React.ChangeEvent<HTMLSelectElement>) => void;
   handleClick?: () => void;
   style?: { top: string; left: string };
 }) {
