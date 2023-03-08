@@ -3,7 +3,7 @@ type Timer = {
 };
 
 type SetUser = {
-  type: 'setUsername' | 'addFoundCharacter';
+  type: 'setUsername' | 'setMessage' | 'addFoundCharacter';
   payload: string;
 };
 
