@@ -3,6 +3,7 @@ import './App.css';
 import Image from './components/Image';
 import Username from './components/Username';
 import { UserAction } from './components/types/UserAction.types';
+import validateUserPlay from './firebase/validateUserPlay';
 
 function msToTime(milliseconds: number) {
   return new Date(milliseconds).toISOString().slice(11, 19);
@@ -10,8 +11,9 @@ function msToTime(milliseconds: number) {
 
 type UserInfo = {
   username: string | null;
-  foundCharacters: string[];
   gameStart: number;
+  message: string | null;
+  foundCharacters: string[];
   gameEnd: number;
   scores: number[];
 };
@@ -19,9 +21,10 @@ type UserInfo = {
 const initialState = {
   username: null,
   gameStart: 0,
+  message: null,
+  foundCharacters: [],
   gameEnd: 0,
   scores: [],
-  foundCharacters: [],
 };
 
 const reducer = (state: UserInfo, action: UserAction) => {
@@ -31,9 +34,15 @@ const reducer = (state: UserInfo, action: UserAction) => {
     case 'setStart':
       return { ...state, gameStart: Date.now() };
     case 'setEnd':
-      return { ...state, gameEnd: Date.now() };
+      return { ...state, message: 'All characters have been found', gameEnd: Date.now() };
+    case 'setMessage':
+      return { ...state, message: action.payload };
     case 'addFoundCharacter':
-      return { ...state, foundCharacters: state.foundCharacters.concat(action.payload) };
+      return {
+        ...state,
+        message: 'Correct',
+        foundCharacters: state.foundCharacters.concat(action.payload),
+      };
     case 'addScore':
       return { ...state, scores: state.scores.concat(state.gameEnd - state.gameStart) };
     case 'restart':
@@ -53,11 +62,15 @@ export default function App() {
   const validatePlay = (data: { x: number; y: number; character: string }) => {
     const { character } = data;
 
-    dispatch({ type: 'addFoundCharacter', payload: character });
+    dispatch({ type: 'setMessage', payload: 'Validating' });
+
+    validateUserPlay(data)
+      .then(() => dispatch({ type: 'addFoundCharacter', payload: character }))
+      .catch(() => dispatch({ type: 'setMessage', payload: 'Wrong character or coordinates' }));
   };
 
   useEffect(() => {
-    if (state.foundCharacters.length === 4) {
+    if (state.foundCharacters.length === 5) {
       dispatch({ type: 'setEnd' });
       dispatch({ type: 'addScore' });
       dispatch({ type: 'restart' });
@@ -71,6 +84,7 @@ export default function App() {
       ) : (
         <Username dispatch={dispatch} />
       )}
+      {state.message && <p>{state.message}</p>}
       {state.scores[0] && (
         <div>
           Scores:
