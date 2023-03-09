@@ -26,11 +26,11 @@ const characters = [
 ];
 
 export default function Image({
-  foundCharacters,
+  foundPeople,
   validatePlay,
 }: {
-  foundCharacters?: string[];
-  validatePlay: (data: { x: number; y: number; character: string }) => void;
+  foundPeople?: string[];
+  validatePlay: (data: { x: number; y: number; name: string }) => void;
 }) {
   const [displayTarget, setDisplayTarget] = useState(false);
   const [value, setValue] = useState('');
@@ -54,7 +54,7 @@ export default function Image({
     const data = {
       x,
       y,
-      character: value,
+      name: value,
     };
 
     validatePlay(data);
@@ -73,7 +73,7 @@ export default function Image({
       {displayTarget && (
         <Target
           value={value}
-          list={characters.filter(({ name }) => !foundCharacters?.includes(name))}
+          list={characters.filter(({ name }) => !foundPeople?.includes(name))}
           handleChange={handleChange}
           handleClick={handleConfirmClick}
           style={{
@@ -87,5 +87,5 @@ export default function Image({
 }
 
 Image.defaultProps = {
-  foundCharacters: [],
+  foundPeople: [],
 };
