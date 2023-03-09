@@ -4,7 +4,7 @@ import Username from '../Username';
 
 describe('username', () => {
   it('renders input', () => {
-    render(<Username handleClick={() => {}} />);
+    render(<Username handleSubmit={() => {}} />);
 
     const input = screen.getByRole('textbox', { name: /Username/i });
 
@@ -12,7 +12,7 @@ describe('username', () => {
   });
 
   it('renders submit button', () => {
-    render(<Username handleClick={() => {}} />);
+    render(<Username handleSubmit={() => {}} />);
 
     const button = screen.getByRole('button');
 
@@ -20,14 +20,14 @@ describe('username', () => {
   });
 
   it('calls handler', () => {
-    const handleClick = jest.fn();
+    const handleSubmit = jest.fn().mockImplementationOnce((e) => e.preventDefault());
 
-    render(<Username handleClick={handleClick} />);
+    render(<Username handleSubmit={handleSubmit} />);
 
     const button = screen.getByRole('button');
 
     userEvent.click(button);
 
-    expect(handleClick).toHaveBeenCalledTimes(1);
+    expect(handleSubmit).toHaveBeenCalledTimes(1);
   });
 });
