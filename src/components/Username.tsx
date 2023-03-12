@@ -1,9 +1,10 @@
 import { useState } from 'react';
+import UserSubmit from '../types/UserSubmit.type';
 
 export default function Username({
   handleSubmit,
 }: {
-  handleSubmit: (e: React.FormEvent<HTMLFormElement>, name: string) => void;
+  handleSubmit: UserSubmit;
 }) {
   const [value, setValue] = useState('');
 
@@ -13,7 +14,7 @@ export default function Username({
     <form onSubmit={(e) => handleSubmit(e, value)}>
       <label htmlFor="username">
         Username
-        <input type="text" name="username" id="username" onChange={handleChange} value={value} />
+        <input type="text" name="username" id="username" onChange={handleChange} value={value} required />
       </label>
       <button type="submit">Submit</button>
     </form>
