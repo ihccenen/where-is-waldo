@@ -8,7 +8,7 @@ export default function Username({
 }) {
   const [value, setValue] = useState('');
 
-  const handleChange = (e: React.FormEvent<HTMLInputElement>) => setValue(e.currentTarget.value);
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => setValue(e.currentTarget.value);
 
   return (
     <form onSubmit={(e) => handleSubmit(e, value)}>
