@@ -12,8 +12,8 @@ export default function Target({
   style?: { top: string; left: string };
 }) {
   return (
-    <div className="target" style={style}>
-      <select value={value} onChange={handleChange}>
+    <div className="flex target" style={style}>
+      <select className="character-list" value={value} onChange={handleChange}>
         <option value="">Select a Character</option>
         {list?.map(({ name, id }) => (
           <option key={id} value={name}>

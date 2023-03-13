@@ -6,17 +6,11 @@ function msToTime(milliseconds: number) {
 
 export default function Scoreboard({ scores }: { scores: UsersScore[] }) {
   return (
-    <div>
+    <div className="scoreboard">
       <ol>
         {scores.map(({ username, time }) => (
           <li key={time}>
-            {username && (
-            <span>
-              {username}
-              :
-              {' '}
-            </span>
-            )}
+            {username && `${username}: `}
             {msToTime(time)}
           </li>
         ))}
