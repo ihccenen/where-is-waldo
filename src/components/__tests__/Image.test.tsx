@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import Image from '../Image';
 
-const fakeValidateData = (data: { x: number; y: number; character: string }) => data;
+const fakeValidateData = (data: { x: number; y: number; name: string }) => data;
 
 describe('image', () => {
   it('renders the image', () => {
