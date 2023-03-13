@@ -51,6 +51,8 @@ export default function App() {
     setTimer(Date.now());
     setFoundPeople([]);
     setMsg('Game has been restarted');
+    setShowForm(false);
+    setHighScoreId('');
   };
 
   const handleScoreSubmit: UserSubmit = (e, name) => {
@@ -77,34 +79,34 @@ export default function App() {
   }, []);
 
   return (
-    <div>
+    <div className="content grid">
       {username ? (
         <>
-          <Image foundPeople={foundPeople} validatePlay={validatePlay} />
-          <button type="button" onClick={handleRestartClick}>
-            Restart
-          </button>
+          <div>
+            <Image foundPeople={foundPeople} validatePlay={validatePlay} />
+            <div className="center flex">
+              <button className="restart-btn" type="button" onClick={handleRestartClick}>
+                Restart
+              </button>
+              {msg && <p>{msg}</p>}
+            </div>
+          </div>
+          <div className="scoreboards-container grid">
+            <div className="scoreboard">
+              {`${username} scores: `}
+              {userScores[0] ? <Scoreboard scores={userScores} /> : <p>Empty</p>}
+            </div>
+            <div className="scoreboard">
+              Leaderboard:
+              {leaderboard[0] ? <Scoreboard scores={leaderboard} /> : <p>Empty</p>}
+            </div>
+          </div>
+          {showForm && <Username handleSubmit={handleScoreSubmit} />}
+          {highScoreId && <Username handleSubmit={handleUpdateDataSubmit} />}
         </>
       ) : (
         <Username handleSubmit={handleUsernameSubmit} />
       )}
-      {msg && <p>{msg}</p>}
-      {userScores[0] && (
-      <div>
-        Scores:
-        {' '}
-        <Scoreboard scores={userScores} />
-      </div>
-      )}
-      {leaderboard[0] && (
-      <div>
-        Leaderboard:
-        {' '}
-        <Scoreboard scores={leaderboard} />
-      </div>
-      )}
-      {showForm && <Username handleSubmit={handleScoreSubmit} />}
-      {highScoreId && <Username handleSubmit={handleUpdateDataSubmit} />}
     </div>
   );
 }
