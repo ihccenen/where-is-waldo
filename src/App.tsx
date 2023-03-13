@@ -101,12 +101,25 @@ export default function App() {
               {leaderboard[0] ? <Scoreboard scores={leaderboard} /> : <p>Empty</p>}
             </div>
           </div>
-          {showForm && <Username handleSubmit={handleScoreSubmit} />}
-          {highScoreId && <Username handleSubmit={handleUpdateDataSubmit} />}
+          {showForm && (
+          <div className="username-form">
+            All people have been found
+            <Username handleSubmit={handleScoreSubmit} />
+          </div>
+          )}
+          {highScoreId && (
+          <div className="username-form">
+            Highscore leaderboard
+            <Username handleSubmit={handleUpdateDataSubmit} />
+          </div>
+          )}
         </>
       ) : (
-        <Username handleSubmit={handleUsernameSubmit} />
+        <div className="username-form">
+          <Username handleSubmit={handleUsernameSubmit} />
+        </div>
       )}
+      {(showForm || highScoreId) && <div className="overlay" />}
     </div>
   );
 }
