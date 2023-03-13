@@ -63,11 +63,13 @@ button:hover {
   background-color: var(--v-p-violet);
   padding: 2em;
   border-radius: 15px;
+  z-index: 2;
 }
 
 .username-label {
   grid-template-columns: 400px;
   font-size: 1.1rem;
+  margin-top: 0.4rem;
 }
 
 .username-input {
@@ -119,4 +121,17 @@ button:hover {
 
 .scoreboard > ol {
   padding: 1em;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(3px);
+  z-index: 1;
 }
