@@ -7,7 +7,7 @@ export default function Username({ handleSubmit }: { handleSubmit: UserSubmit })
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => setValue(e.currentTarget.value);
 
   return (
-    <form className="username-form" onSubmit={(e) => handleSubmit(e, value)}>
+    <form onSubmit={(e) => handleSubmit(e, value)}>
       <label className="grid username-label" htmlFor="username">
         Username
         <input
